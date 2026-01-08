@@ -1,2 +1,4 @@
-# UAX_IngenieriaWebI_DBO
-Repositorio (público) para entregas de Ingeniería Web I (DBO)
+# CONTEXTO
+Repos para la asignatura Ingeniería Web I de David Biencinto Onieva
+Enero 2026
+
