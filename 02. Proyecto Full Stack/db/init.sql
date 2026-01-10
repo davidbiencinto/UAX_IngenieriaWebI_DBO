@@ -5,7 +5,7 @@ CREATE TABLE IF NOT EXISTS supermercados (
 
 CREATE TABLE IF NOT EXISTS productos (
   id INT AUTO_INCREMENT PRIMARY KEY,
-  nombre VARCHAR(150) NOT NULL UNIQUE,
+  nombre VARCHAR(150) NOT NULL UNIQUE
 );
 
 CREATE TABLE IF NOT EXISTS precios (
@@ -25,12 +25,12 @@ INSERT INTO supermercados(name)
     ('Carrefour'), 
     ('Lidl');
 
-INSERT INTO productos(nombre, codigo) 
+INSERT INTO productos(nombre) 
     VALUES 
     ('Leche Entera 1L'),
     ('Pan integral 500g'),
     ('Huevos clase A (docena)'),
-    ('Manzanas 1kg';
+    ('Manzanas 1kg');
 
 INSERT INTO precios(producto_nombre, supermercado_id, precio)
     VALUES 

@@ -1,0 +1,290 @@
+/* supermertracker - estilos css
+   diseño simple y funcional */
+
+/* reset basico para quitar margenes */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #ecf0f1;
+    color: #2c3e50;
+    line-height: 1.6;
+}
+
+/* cabecera de la pagina */
+header {
+    background-color: #34495e;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    border-bottom: 4px solid #2c3e50;
+}
+
+header h1 {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+/* contenedor principal */
+main {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 0 20px;
+}
+
+/* botones para el movil (buscar y añadir) */
+#acciones-mobile {
+    margin-bottom: 20px;
+}
+
+.acciones-container {
+    display: flex;
+    gap: 10px;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.btn-accion {
+    flex: 1;
+    background-color: #3498db;
+    color: white;
+    border: 2px solid #2980b9;
+    padding: 15px;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn-accion:hover {
+    background-color: #2980b9;
+}
+
+/* listado de productos - aqui se muestran todos los precios */
+#listado {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+}
+
+#listado h2 {
+    color: #34495e;
+    margin-bottom: 15px;
+    border-bottom: 3px solid #3498db;
+    padding-bottom: 10px;
+}
+
+#contenedor-productos {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.producto-item {
+    background-color: #f8f9fa;
+    border: 2px solid #dee2e6;
+    border-left: 5px solid #3498db;
+    padding: 15px;
+    border-radius: 5px;
+}
+
+.producto-item:hover {
+    background-color: #e3f2fd;
+    border-left-color: #2980b9;
+}
+
+/* buscador para pc (en movil va en un modal) */
+.desktop-search {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    display: none;
+}
+
+.desktop-search h3 {
+    color: #34495e;
+    margin-bottom: 15px;
+}
+
+.search-container {
+    display: flex;
+    gap: 10px;
+}
+
+.search-container input {
+    flex: 1;
+    padding: 10px;
+    border: 2px solid #bdc3c7;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+.search-container input:focus {
+    outline: none;
+    border-color: #3498db;
+}
+
+.search-container button {
+    background-color: #27ae60;
+    color: white;
+    border: 2px solid #229954;
+    padding: 10px 25px;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.search-container button:hover {
+    background-color: #229954;
+}
+
+/* modales - ventanas emergentes para añadir y buscar */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.modal-content {
+    background-color: white;
+    margin: 50px auto;
+    padding: 25px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+.close,
+.close-search {
+    color: #95a5a6;
+    float: right;
+    font-size: 30px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover,
+.close-search:hover {
+    color: #e74c3c;
+}
+
+/* formularios - para añadir precios nuevos */
+form {
+    margin-top: 20px;
+}
+
+form h2 {
+    color: #34495e;
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-top: 12px;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #34495e;
+}
+
+input,
+select {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #bdc3c7;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+input:focus,
+select:focus {
+    outline: none;
+    border-color: #3498db;
+}
+
+button[type="submit"] {
+    width: 100%;
+    background-color: #e74c3c;
+    color: white;
+    border: 2px solid #c0392b;
+    padding: 12px;
+    margin-top: 15px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button[type="submit"]:hover {
+    background-color: #c0392b;
+}
+
+/* pie de paginna */
+footer {
+    background-color: #34495e;
+    color: white;
+    text-align: center;
+    padding: 15px;
+    margin-top: 30px;
+    border-top: 4px solid #2c3e50;
+}
+
+/* media queries para responsive */
+
+/* para pantallas grandes (pc y portatiles) */
+@media screen and (min-width: 1024px) {
+    /* ocultar botones de movil en pc */
+    #acciones-mobile {
+        display: none;
+    }
+
+    /* mostrar buscador en pc */
+    .desktop-search {
+        display: block;
+    }
+
+    /* grid para que salgan en varias columnas */
+    #contenedor-productos {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 15px;
+    }
+}
+
+/* tablets */
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+    #contenedor-productos {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+}
+
+/* moviles pequeños */
+@media screen and (max-width: 480px) {
+    header h1 {
+        font-size: 1.5rem;
+    }
+
+    .btn-accion {
+        font-size: 0.9rem;
+        padding: 12px;
+    }
+
+    #listado h2 {
+        font-size: 1.3rem;
+    }
+}

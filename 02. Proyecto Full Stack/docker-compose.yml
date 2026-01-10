@@ -1,8 +1,17 @@
+# -----------------------------------------------------------------------------------------------------
+# Como uso Macbook para las prácticas, uso docker para crear los contenedores con todo lo que necesite
+# para las prácticas: server Apache, PHP, MySQL, phpMyAdmin, etc.
+# -----------------------------------------------------------------------------------------------------
+# David Biencinto - UAX - Ingeniería Web I - 2026
+# -----------------------------------------------------------------------------------------------------
+
+version: '3.8'
+
 services:
+
+# Servidor web Apache con PHP 
   web:
-    build:
-      context: .
-      dockerfile: docker/php/Dockerfile
+    image: php:8.1-apache
     container_name: supermertracker-web
     ports:
       - "8080:80"
@@ -10,47 +19,31 @@ services:
       - ./src:/var/www/html
     depends_on:
       - db
-    environment:
-      DB_HOST: db
-      DB_NAME: ${MYSQL_DATABASE}
-      DB_USER: ${MYSQL_USER}
-      DB_PASS: ${MYSQL_PASSWORD}
+    command: >
+      bash -c "docker-php-ext-install mysqli && apache2-foreground"
 
+# Base de datos MySQL
   db:
     image: mysql:8.0
     container_name: supermertracker-db
-    ports:
-      - "3307:3306"
     environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-      MYSQL_DATABASE: ${MYSQL_DATABASE}
-      MYSQL_USER: ${MYSQL_USER}
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
-    volumes:
-      - dbdata:/var/lib/mysql
-      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
-
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin
-    container_name: supermertracker-phpmyadmin
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: precios_db
+      MYSQL_USER: david
+      MYSQL_PASSWORD: password
     ports:
-      - "8081:80"
+      - "3306:3306"
+    volumes:
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  # phpMyAdmin (como en XAMPP)
+  pma:
+    image: phpmyadmin/phpmyadmin
+    container_name: supermertracker-pma
     environment:
       PMA_HOST: db
-    depends_on:
-      - db
-
-  nodeapi:
-    image: node:20-alpine
-    container_name: supermertracker-nodeapi
-    working_dir: /app
-    volumes:
-      - ./node:/app
+      MYSQL_ROOT_PASSWORD: root
     ports:
-      - "3000:3000"
-    command: ["node", "server.js"]
+      - "8081:80"
     depends_on:
       - db
-
-volumes:
-  dbdata:

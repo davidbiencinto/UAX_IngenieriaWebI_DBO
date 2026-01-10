@@ -1,15 +1,86 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Supermertracker</title>
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SuperMertracker - David Biencinto</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>Supermertracker</h1>
-  <p>Ingenieria Web I - App para comparar precios de productos en supermercados</p>
 
-  <script src="script.js"></script>
+    <header>
+        <h1>SuperMertracker</h1>
+    </header>
+
+    <main>
+        <!-- botonera-->
+        <section id="acciones-mobile">
+            <div class="acciones-container">
+                <button id="btnMostrarBuscador" class="btn-accion">Buscar</button>
+                <button id="btnMostrarAnadir" class="btn-accion">Añadir</button>
+            </div>
+        </section>
+
+        <!-- listado -->
+        <section id="listado">
+            <h2>Comparativa de Precios</h2>
+            <div id="contenedor-productos">
+                <p>Cargando productos...</p>
+            </div>
+        </section>
+
+        <!-- buscador, en pc/mac debajo del listado, en el móvil una modal que salta -->
+        <section id="buscador" class="desktop-search">
+            <h3>Buscar producto</h3>
+            <div class="search-container">
+                <input type="text" id="inputBusqueda" placeholder="Ej: Leche, Arroz...">
+                <button id="btnBuscar">Buscar</button>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Desarrollado por David Biencinto Onieva - Ingeniería Web 1 - UAX 2026</p>
+    </footer>
+
+    <!-- MODALES -->
+    <!-- Modal añadir producto -->
+    <div id="modalAnadir" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Añadir Nuevo Precio</h2>
+            <form id="formProducto">
+                <label for="producto">Producto:</label>
+                <input type="text" id="producto" name="producto">
+
+                <label for="supermercado">Supermercado:</label>
+                <select id="supermercado" name="supermercado">
+                    <option value="Mercadona">Mercadona</option>
+                    <option value="Carrefour">Carrefour</option>
+                    <option value="Lidl">Lidl</option>
+                    <option value="Dia">Dia</option>
+                </select>
+
+                <label for="precio">Precio (€):</label>
+                <input type="number" step="0.01" id="precio" name="precio">
+
+                <button type="submit">Guardar Precio</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal buscar (sólo para móvil) -->
+    <div id="modalBuscar" class="modal">
+        <div class="modal-content">
+            <span class="close-search">&times;</span>
+            <h2>Buscar Producto</h2>
+            <div class="search-container">
+                <input type="text" id="inputBusquedaMobile" placeholder="Ej: Leche, Arroz...">
+                <button id="btnBuscarMobile">Buscar</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
