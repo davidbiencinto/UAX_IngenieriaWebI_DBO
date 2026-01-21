@@ -1,7 +1,4 @@
-/* supermertracker - estilos css
-   diseño simple y funcional */
-
-/* reset basico para quitar margenes */
+/* por defecto, todo sin margenes */
 * {
     margin: 0;
     padding: 0;
@@ -15,7 +12,7 @@ body {
     line-height: 1.6;
 }
 
-/* cabecera de la pagina */
+/* cabeceras */
 header {
     background-color: #34495e;
     color: white;
@@ -23,21 +20,19 @@ header {
     text-align: center;
     border-bottom: 4px solid #2c3e50;
 }
-
 header h1 {
     font-size: 2rem;
     font-weight: bold;
 }
 
-/* contenedor principal */
 main {
     max-width: 1200px;
     margin: 20px auto;
     padding: 0 20px;
 }
 
-/* botones para el movil (buscar y añadir) */
-#acciones-mobile {
+/* botones de acción (buscar, añadir) */
+#acciones {
     margin-bottom: 20px;
 }
 
@@ -50,8 +45,31 @@ main {
 
 .btn-accion {
     flex: 1;
-    background-color: #3498db;
     color: white;
+    padding: 15px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-buscar {
+    background-color: #3498db;
+}
+
+.btn-buscar:hover {
+    background-color: #2980b9;
+}
+
+.btn-anadir {
+    background-color: #e74c3c;
+}
+
+.btn-anadir:hover {
+    background-color: #c0392b;
+}
     border: 2px solid #2980b9;
     padding: 15px;
     font-size: 1rem;
@@ -64,7 +82,7 @@ main {
     background-color: #2980b9;
 }
 
-/* listado de productos - aqui se muestran todos los precios */
+/* listado de productos con tarjetitas */
 #listado {
     background-color: white;
     padding: 20px;
@@ -242,15 +260,35 @@ footer {
     border-top: 4px solid #2c3e50;
 }
 
+/* estilos para el detalle del producto */
+.detalle-precios {
+    text-align: left;
+    padding: 10px;
+}
+
+.detalle-precios ul {
+    list-style: none;
+    padding: 0;
+}
+
+.detalle-precios li {
+    padding: 10px;
+    margin: 5px 0;
+    background-color: #f8f9fa;
+    border-radius: 5px;
+    border-left: 4px solid #3498db;
+}
+
+.detalle-precios hr {
+    margin: 15px 0;
+    border: none;
+    border-top: 2px solid #ecf0f1;
+}
+
 /* media queries para responsive */
 
 /* para pantallas grandes (pc y portatiles) */
 @media screen and (min-width: 1024px) {
-    /* ocultar botones de movil en pc */
-    #acciones-mobile {
-        display: none;
-    }
-
     /* mostrar buscador en pc */
     .desktop-search {
         display: block;

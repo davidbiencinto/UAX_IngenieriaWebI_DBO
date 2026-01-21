@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SuperMertracker - David Biencinto</title>
+    <title>SuperMertracker - David Biencinto 2026 - Ingenería Web I UAX</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -13,11 +13,11 @@
     </header>
 
     <main>
-        <!-- botonera-->
-        <section id="acciones-mobile">
+        <!-- botonera para móvil y desktop -->
+        <section id="acciones">
             <div class="acciones-container">
-                <button id="btnMostrarBuscador" class="btn-accion">Buscar</button>
-                <button id="btnMostrarAnadir" class="btn-accion">Añadir</button>
+                <button id="btnMostrarBuscador" class="btn-accion btn-buscar">Buscar</button>
+                <button id="btnMostrarAnadir" class="btn-accion btn-anadir">Añadir</button>
             </div>
         </section>
 
@@ -29,7 +29,7 @@
             </div>
         </section>
 
-        <!-- buscador, en pc/mac debajo del listado, en el móvil una modal que salta -->
+        <!-- buscador desktop -->
         <section id="buscador" class="desktop-search">
             <h3>Buscar producto</h3>
             <div class="search-container">
@@ -48,7 +48,7 @@
     <div id="modalAnadir" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
-            <h2>Añadir Nuevo Precio</h2>
+            <h2>Añadir nuevo precio</h2>
             <form id="formProducto">
                 <label for="producto">Producto:</label>
                 <input type="text" id="producto" name="producto">
@@ -64,7 +64,7 @@
                 <label for="precio">Precio (€):</label>
                 <input type="number" step="0.01" id="precio" name="precio">
 
-                <button type="submit">Guardar Precio</button>
+                <button type="submit">Guardar precio</button>
             </form>
         </div>
     </div>
@@ -73,10 +73,21 @@
     <div id="modalBuscar" class="modal">
         <div class="modal-content">
             <span class="close-search">&times;</span>
-            <h2>Buscar Producto</h2>
+            <h2>Buscar producto</h2>
             <div class="search-container">
-                <input type="text" id="inputBusquedaMobile" placeholder="Ej: Leche, Arroz...">
+                <input type="text" id="inputBusquedaMobile" placeholder="Leche, Arroz...">
                 <button id="btnBuscarMobile">Buscar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal detalle producto -->
+    <div id="modalDetalle" class="modal">
+        <div class="modal-content">
+            <span class="close-detalle">&times;</span>
+            <h2 id="detalleNombreProducto">Detalle del Producto</h2>
+            <div id="detalleContenido">
+                <p>Cargando...</p>
             </div>
         </div>
     </div>
