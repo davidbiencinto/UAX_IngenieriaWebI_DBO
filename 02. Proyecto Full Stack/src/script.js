@@ -10,8 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const modalBuscar = document.getElementById('modalBuscar');
     const modalDetalle = document.getElementById('modalDetalle');
     
-    // botones de acciones (móvil y desktop)
-    const btnMostrarBuscador = document.getElementById('btnMostrarBuscador');
+    // botones de acciones
     const btnMostrarAnadir = document.getElementById('btnMostrarAnadir');
     
     // botones para cerrar los modales
@@ -19,14 +18,21 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnCerrarBuscar = document.querySelector('.close-search');
     const btnCerrarDetalle = document.querySelector('.close-detalle');
     
-    // cosas de la busqueda
+    // cosas de la busqueda - móvil (barra inferior)
     const inputBusqueda = document.getElementById('inputBusqueda');
-    const inputBusquedaMobile = document.getElementById('inputBusquedaMobile');
     const btnBuscar = document.getElementById('btnBuscar');
+    
+    // búsqueda - desktop
+    const inputBusquedaDesktop = document.getElementById('inputBusquedaDesktop');
+    const btnBuscarDesktop = document.getElementById('btnBuscarDesktop');
+    
+    // búsqueda - modal móvil (por si acaso)
+    const inputBusquedaMobile = document.getElementById('inputBusquedaMobile');
     const btnBuscarMobile = document.getElementById('btnBuscarMobile');
 
     // funcion para cargar precios desde la API REST usando la clase Precio
     function cargarProductosDesdeDB(textoBusqueda = '') {
+        console.log('=== INICIANDO cargarProductosDesdeDB ===');
         console.log('cargo productos desde DB // texto busqueda:', textoBusqueda || '(todos)');
         
         // construyo la URL con el parámetro de búsqueda si existe
@@ -39,28 +45,38 @@ document.addEventListener('DOMContentLoaded', () => {
         fetch(url)
             .then(response => {
                 console.log('respuesta recibida del servidor // status:', response.status);
+                if (!response.ok) {
+                    console.error('ERROR: respuesta no OK:', response.status, response.statusText);
+                }
                 return response.json();
             })
             .then(data => {
+                console.log('=== DATOS RECIBIDOS ===');
                 console.log('productos obtenidos // cantidad:', data.length);
+                console.log('primer producto:', data[0]);
+                console.log('=======================');
                 mostrarProductos(data);
             })
             .catch(error => {
-                console.error('ERROR al cargar productos:', error);
+                console.error('=== ERROR al cargar productos ===', error);
                 contenedor.innerHTML = '<p style="color: red;">Error al conectar con la base de datos</p>';
             });
     }
 
     // funcion para pintar los productos en el html
     function mostrarProductos(lista) {
+        console.log('=== MOSTRANDO PRODUCTOS ===');
+        console.log('Cantidad a mostrar:', lista.length);
         contenedor.innerHTML = '';
 
         if (lista.length === 0) {
+            console.log('No hay productos para mostrar');
             contenedor.innerHTML = '<p>No se encontraron productos</p>';
             return;
         }
 
-        lista.forEach(prod => {
+        lista.forEach((prod, index) => {
+            console.log(`Producto ${index + 1}:`, prod);
             const div = document.createElement('div');
             div.className = 'producto-item';
             div.style.cursor = 'pointer';
@@ -83,6 +99,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // función para mostrar detalle de un producto
     function mostrarDetalle(nombreProducto) {
+        console.log('=== MOSTRANDO DETALLE ===');
         console.log('muestro detalle de producto // nombre:', nombreProducto);
         
         // abro modal
@@ -142,8 +159,7 @@ document.addEventListener('DOMContentLoaded', () => {
         cargarProductosDesdeDB(texto);
     }
 
-
-    // eventos para PC
+    // eventos para búsqueda - móvil (barra inferior)
     btnBuscar.addEventListener('click', () => {
         realizarBusqueda(inputBusqueda.value);
     });
@@ -154,19 +170,37 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // eventos para movil
-    btnBuscarMobile.addEventListener('click', () => {
-        realizarBusqueda(inputBusquedaMobile.value);
-        modalBuscar.style.display = 'none';
-    });
+    // eventos para búsqueda - desktop
+    if (btnBuscarDesktop) {
+        btnBuscarDesktop.addEventListener('click', () => {
+            realizarBusqueda(inputBusquedaDesktop.value);
+        });
+    }
 
+    if (inputBusquedaDesktop) {
+        inputBusquedaDesktop.addEventListener('keyup', (e) => {
+            if (e.key === 'Enter') {
+                realizarBusqueda(inputBusquedaDesktop.value);
+            }
+        });
+    }
 
-    inputBusquedaMobile.addEventListener('keyup', (e) => {
-        if (e.key === 'Enter') {
+    // eventos para movil modal (por compatibilidad)
+    if (btnBuscarMobile) {
+        btnBuscarMobile.addEventListener('click', () => {
             realizarBusqueda(inputBusquedaMobile.value);
             modalBuscar.style.display = 'none';
-        }
-    });
+        });
+    }
+
+    if (inputBusquedaMobile) {
+        inputBusquedaMobile.addEventListener('keyup', (e) => {
+            if (e.key === 'Enter') {
+                realizarBusqueda(inputBusquedaMobile.value);
+                modalBuscar.style.display = 'none';
+            }
+        });
+    }
 
     // gestion de los modales (abrir y cerrar)
     // abrir modal para añadir (móvil y desktop)
@@ -174,20 +208,17 @@ document.addEventListener('DOMContentLoaded', () => {
         modalAnadir.style.display = 'block';
     });
 
-    // abrir modal buscar (solo en móvil)
-    btnMostrarBuscador.addEventListener('click', () => {
-        modalBuscar.style.display = 'block';
-    });
-
     // cerrar modal añadir
     btnCerrarAnadir.addEventListener('click', () => {
         modalAnadir.style.display = 'none';
     });
 
-    // cerrar modal buscar
-    btnCerrarBuscar.addEventListener('click', () => {
-        modalBuscar.style.display = 'none';
-    });
+    // cerrar modal buscar (si existe)
+    if (btnCerrarBuscar) {
+        btnCerrarBuscar.addEventListener('click', () => {
+            modalBuscar.style.display = 'none';
+        });
+    }
 
     // cerrar modal detalle
     btnCerrarDetalle.addEventListener('click', () => {
@@ -206,7 +237,13 @@ document.addEventListener('DOMContentLoaded', () => {
             modalDetalle.style.display = 'none';
         }
     });
-t nuevoProducto = {
+
+    // formulario para agregar un nuevo precio
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        console.log('=== ENVIANDO FORMULARIO ===');
+        
+        const nuevoProducto = {
             producto: document.getElementById('producto').value,
             supermercado: document.getElementById('supermercado').value,
             precio: document.getElementById('precio').value
@@ -248,12 +285,8 @@ t nuevoProducto = {
     });
 
     // cargo los productos al iniciar (sin filtro = todos)
-    console.log('inici error en la peticion:', error);
-            alert('Error al conectar con el servidor');
-        });
-    });
-
-    // cargo los productos al iniciar (sin filtro = todos)
-    console.log('[inicio] iniciando aplicacion...');
+    console.log('===================================');
+    console.log('[INICIO] Iniciando aplicacion...');
+    console.log('===================================');
     cargarProductosDesdeDB();
 });

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test API</title>
+</head>
+<body>
+    <h1>Test de API</h1>
+    <div id="resultado"></div>
+    
+    <script>
+        console.log('=== TEST INICIADO ===');
+        
+        fetch('api/buscar.php')
+            .then(response => {
+                console.log('Status:', response.status);
+                return response.json();
+            })
+            .then(data => {
+                console.log('Datos recibidos:', data);
+                document.getElementById('resultado').innerHTML = 
+                    '<pre>' + JSON.stringify(data, null, 2) + '</pre>';
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById('resultado').innerHTML = 
+                    '<p style="color: red;">Error: ' + error.message + '</p>';
+            });
+    </script>
+</body>
+</html>

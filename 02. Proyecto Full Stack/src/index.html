@@ -16,7 +16,10 @@
         <!-- botonera para móvil y desktop -->
         <section id="acciones">
             <div class="acciones-container">
-                <button id="btnMostrarBuscador" class="btn-accion btn-buscar">Buscar</button>
+                <div class="search-container">
+                    <input type="text" id="inputBusqueda" placeholder="Buscar producto...">
+                    <button id="btnBuscar" class="btn-accion btn-buscar">Buscar</button>
+                </div>
                 <button id="btnMostrarAnadir" class="btn-accion btn-anadir">Añadir</button>
             </div>
         </section>
@@ -30,11 +33,11 @@
         </section>
 
         <!-- buscador desktop -->
-        <section id="buscador" class="desktop-search">
+        <section id="buscador" class="desktop-search" style="display: none;">
             <h3>Buscar producto</h3>
             <div class="search-container">
-                <input type="text" id="inputBusqueda" placeholder="Ej: Leche, Arroz...">
-                <button id="btnBuscar">Buscar</button>
+                <input type="text" id="inputBusquedaDesktop" placeholder="Ej: Leche, Arroz...">
+                <button id="btnBuscarDesktop">Buscar</button>
             </div>
         </section>
     </main>
