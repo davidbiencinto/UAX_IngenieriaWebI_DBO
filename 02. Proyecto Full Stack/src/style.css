@@ -25,6 +25,15 @@ header h1 {
     font-weight: bold;
 }
 
+/* mostrar título según tamaño de pantalla */
+.titulo-mobile {
+    display: block;
+}
+
+.titulo-desktop {
+    display: none;
+}
+
 main {
     max-width: 1200px;
     margin: 20px auto;
@@ -278,6 +287,15 @@ footer {
 
 /* para pantallas grandes (pc y portatiles) */
 @media screen and (min-width: 1024px) {
+    /* títulos según pantalla */
+    .titulo-mobile {
+        display: none;
+    }
+    
+    .titulo-desktop {
+        display: block;
+    }
+
     /* mostrar buscador en pc */
     .desktop-search {
         display: block;
@@ -293,6 +311,15 @@ footer {
 
 /* tablets */
 @media screen and (min-width: 768px) and (max-width: 1023px) {
+    /* títulos según pantalla */
+    .titulo-mobile {
+        display: none;
+    }
+    
+    .titulo-desktop {
+        display: block;
+    }
+
     #contenedor-productos {
         display: grid;
         grid-template-columns: repeat(2, 1fr);

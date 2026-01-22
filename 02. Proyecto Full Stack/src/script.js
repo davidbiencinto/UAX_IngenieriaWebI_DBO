@@ -75,17 +75,27 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
+        // encontrar precio mínimo
+        const precioMinimo = Math.min(...lista.map(p => p.precio));
+        console.log('Precio mínimo:', precioMinimo);
+
         lista.forEach((prod, index) => {
             console.log(`Producto ${index + 1}:`, prod);
             const div = document.createElement('div');
             div.className = 'producto-item';
             div.style.cursor = 'pointer';
+            
+            // verificar si es el precio más bajo
+            const esPrecioMasBajo = prod.precio === precioMinimo;
+            const colorPrecio = esPrecioMasBajo ? '#e74c3c' : '#27ae60';
+            const textoPrecio = esPrecioMasBajo ? `${prod.precio.toFixed(2)}€ (más bajo!)` : `${prod.precio.toFixed(2)}€`;
+            
             div.innerHTML = `
                 <strong style="color: #2c3e50; font-size: 1.1rem;">${prod.nombre}</strong>
                 <br>
                 <span style="color: #7f8c8d;">${prod.super}</span>
                 <br>
-                <span style="color: #27ae60; font-size: 1.2rem; font-weight: bold;">${prod.precio.toFixed(2)}€</span>
+                <span style="color: ${colorPrecio}; font-size: 1.2rem; font-weight: bold;">${textoPrecio}</span>
             `;
             
             // añadir evento click para mostrar detalle
