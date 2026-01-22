@@ -75,9 +75,20 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        // encontrar precio mínimo
-        const precioMinimo = Math.min(...lista.map(p => p.precio));
-        console.log('Precio mínimo:', precioMinimo);
+        // agrupar productos por nombre y encontrar precio mínimo de cada uno
+        const preciosPorProducto = {};
+        lista.forEach(prod => {
+            if (!preciosPorProducto[prod.nombre]) {
+                preciosPorProducto[prod.nombre] = [];
+            }
+            preciosPorProducto[prod.nombre].push(prod.precio);
+        });
+
+        // calcular precio mínimo de cada producto
+        const preciosMinimos = {};
+        Object.keys(preciosPorProducto).forEach(nombre => {
+            preciosMinimos[nombre] = Math.min(...preciosPorProducto[nombre]);
+        });
 
         lista.forEach((prod, index) => {
             console.log(`Producto ${index + 1}:`, prod);
@@ -85,17 +96,26 @@ document.addEventListener('DOMContentLoaded', () => {
             div.className = 'producto-item';
             div.style.cursor = 'pointer';
             
-            // verificar si es el precio más bajo
-            const esPrecioMasBajo = prod.precio === precioMinimo;
-            const colorPrecio = esPrecioMasBajo ? '#e74c3c' : '#27ae60';
-            const textoPrecio = esPrecioMasBajo ? `${prod.precio.toFixed(2)}€ (más bajo!)` : `${prod.precio.toFixed(2)}€`;
+            // verificar si es el precio más bajo DE ESTE PRODUCTO
+            const esPrecioMasBajo = prod.precio === preciosMinimos[prod.nombre];
+            
+            // cambiar estilo de la tarjeta si es el más bajo
+            if (esPrecioMasBajo) {
+                div.style.backgroundColor = '#d4edda';
+                div.style.borderLeftColor = '#28a745';
+                div.style.borderWidth = '3px';
+            }
+            
+            const textoPrecio = esPrecioMasBajo 
+                ? `${prod.precio.toFixed(2)}€ <strong>(Precio más bajo!)</strong>` 
+                : `${prod.precio.toFixed(2)}€`;
             
             div.innerHTML = `
                 <strong style="color: #2c3e50; font-size: 1.1rem;">${prod.nombre}</strong>
                 <br>
                 <span style="color: #7f8c8d;">${prod.super}</span>
                 <br>
-                <span style="color: ${colorPrecio}; font-size: 1.2rem; font-weight: bold;">${textoPrecio}</span>
+                <span style="color: #27ae60; font-size: 1.2rem; font-weight: bold;">${textoPrecio}</span>
             `;
             
             // añadir evento click para mostrar detalle
