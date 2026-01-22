@@ -25,13 +25,18 @@ header h1 {
     font-weight: bold;
 }
 
-/* mostrar título según tamaño de pantalla */
+/* mostrar título según tamaño de pantalla - por defecto móvil */
 .titulo-mobile {
     display: block;
 }
 
 .titulo-desktop {
     display: none;
+}
+
+/* fondo negro para móvil */
+header {
+    background-color: #000000;
 }
 
 main {
@@ -290,6 +295,11 @@ footer {
     /* títulos según pantalla */
     .titulo-mobile {
         display: none;
+    
+    /* fondo gris para desktop */
+    header {
+        background-color: #6c757d;
+    }
     }
     
     .titulo-desktop {
@@ -314,6 +324,11 @@ footer {
     /* títulos según pantalla */
     .titulo-mobile {
         display: none;
+    
+    /* fondo gris para tablet */
+    header {
+        background-color: #6c757d;
+    }
     }
     
     .titulo-desktop {
