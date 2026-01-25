@@ -1,6 +1,7 @@
 # SuperMertracker - Comparador de Precios
 ### Proyecto FullStack para Ingeniería Web I (UAX, 2026)
 ### **David Biencinto Onieva**  
+### Código descargable desde: https://github.com/davidbiencinto/UAX_IngenieriaWebI_DBO
 --------------------------------------------------------------------------------
 
 ## Objetivo
@@ -12,7 +13,7 @@ Por eso me parecío una app interesante sobre la que empezar a trabajar.
 
 ## Funcionalidad
 - Añades productos con su precio y el supermercado donde lo compraste
-- Buscas por nombre de producto (botón buscar, o pulsando enter)
+- Buscas por nombre de producto (botón buscar, o pulsando enter) y también por supermercado
 - Te muestra el precio más bajo de cada producto (en verde con fondo) y el resto de precios para comparar
 - Click en un producto y ves el detalle completo
 
@@ -43,7 +44,9 @@ Luego ve a http://localhost:8080
 - `index.html` - Fichero web principal (punto de entrada a la app)
 - `Precio.php`, `Producto.php`, `Supermercado.php`, `Database.php` - Clases de PHP con la lógica de la aplicación con las entidades que intervienen (precio, producto, supermercado donde se vende), y para manejar la base de datos de MySQL
 - `.env` - Credenciales de Docker
-- `db/init.sql` - Script SQL con estructura y datos de prueba
+- `db/init.sql` - Script SQL con estructura y datos de prueba (en esa carpeta también he puesto el fichero docker para configurar el server mysql)
+- `docker/php` - Aquí está el fichero docker para configurar el server web con php
 - `src/api/` - Endpoints REST en PHP
+- `docker-compose.yml` - Este es el punto de arranque si usas docker, el fichero que compone todos los dockerfiles del proyecto y el que levanta el sistema (server mysql, server apache, ...)
 
 --------------------------------------------------------------------------------

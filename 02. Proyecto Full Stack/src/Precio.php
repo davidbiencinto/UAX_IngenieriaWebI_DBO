@@ -31,7 +31,7 @@ class Precio {
 
     }
 
-    // aquí añado precio
+    // añadir precio
     public function insertar($productoNombre, $supermercadoId, $precio) {
         $sql = "INSERT INTO precios (producto_nombre, supermercado_id, precio) VALUES (?, ?, ?)";
         $stmt = $this->conn->prepare($sql);
@@ -43,7 +43,7 @@ class Precio {
         return false;
     }
 
-    // aquí recupero productos por nombre
+    // recupero productos por nombre
     public function obtenerPorProducto($productoNombre) {
         $sql = "SELECT p.precio, s.name as supermercado 
                 FROM precios p 
@@ -66,7 +66,7 @@ class Precio {
         return $precios;
     }
 
-    // aquí busco precios por texto (nombre de producto o supermercado)
+    // busco precios por texto (nombre de producto o supermercado)
     public function buscar($texto) {
         $textoLike = "%" . $texto . "%";
         $sql = "SELECT p.producto_nombre as nombre, s.name as supermercado, p.precio 
@@ -115,7 +115,7 @@ class Precio {
             while($row = $result->fetch_assoc()) {
                 $detalle['precios'][] = array(
                     'supermercado' => $row['supermercado'],
-                    'precio' => floatval($row['precio']),
+                    'precio' => floatval($row['precio']), # convierto los precios a float para evitar problemas en el front
                     'fecha' => $row['fecha_creacion']
                 );
             }

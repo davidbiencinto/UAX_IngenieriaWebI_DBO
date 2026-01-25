@@ -1,6 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-    console.log("DOM cargado correctamente");
-
     // elementos del dom que vamos a usar
     const contenedor = document.getElementById('contenedor-productos');
     const form = document.getElementById('formProducto');
@@ -31,44 +29,27 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnBuscarMobile = document.getElementById('btnBuscarMobile');
 
     function cargarProductosDesdeDB(textoBusqueda = '') {
-        console.log('=== INICIANDO cargarProductosDesdeDB ===');
-        console.log('cargo productos desde DB // texto busqueda:', textoBusqueda || '(todos)');
-        
         // construyo la URL con el parámetro de búsqueda si existe
         const url = textoBusqueda 
             ? `api/buscar.php?q=${encodeURIComponent(textoBusqueda)}`
             : 'api/buscar.php';
         
-        console.log('hago fetch a:', url);
-        
         fetch(url)
             .then(response => {
-                console.log('respuesta recibida del servidor // status:', response.status);
-                if (!response.ok) {
-                    console.error('ERROR: respuesta no OK:', response.status, response.statusText);
-                }
                 return response.json();
             })
             .then(data => {
-                console.log('=== DATOS RECIBIDOS ===');
-                console.log('productos obtenidos // cantidad:', data.length);
-                console.log('primer producto:', data[0]);
-                console.log('=======================');
                 mostrarProductos(data);
             })
             .catch(error => {
-                console.error('=== ERROR al cargar productos ===', error);
                 contenedor.innerHTML = '<p style="color: red;">Error al conectar con la base de datos</p>';
             });
     }
 
     function mostrarProductos(lista) {
-        console.log('=== MOSTRANDO PRODUCTOS ===');
-        console.log('Cantidad a mostrar:', lista.length);
         contenedor.innerHTML = '';
 
         if (lista.length === 0) {
-            console.log('No hay productos para mostrar');
             contenedor.innerHTML = '<p>No se encontraron productos</p>';
             return;
         }
@@ -89,7 +70,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         lista.forEach((prod, index) => {
-            console.log(`Producto ${index + 1}:`, prod);
             const div = document.createElement('div');
             div.className = 'producto-item';
             div.style.cursor = 'pointer';
@@ -130,9 +110,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // función para mostrar detalle de un producto
     function mostrarDetalle(nombreProducto) {
-        console.log('=== MOSTRANDO DETALLE ===');
-        console.log('muestro detalle de producto // nombre:', nombreProducto);
-        
         // abro modal con jQuery
         $(modalDetalle).fadeIn(300);
         document.getElementById('detalleNombreProducto').textContent = nombreProducto;
@@ -140,12 +117,10 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // llamo a la API de detalle
         const url = `api/detalle.php?producto=${encodeURIComponent(nombreProducto)}`;
-        console.log('hago fetch a detalle:', url);
         
         fetch(url)
             .then(response => response.json())
             .then(data => {
-                console.log('detalle recibido // cantidad de precios:', data.precios?.length || 0);
                 let html = '';
                 
                 if (data.precios && data.precios.length > 0) {
@@ -153,8 +128,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     const precios = data.precios.map(p => p.precio);
                     const minPrecio = Math.min(...precios);
                     const maxPrecio = Math.max(...precios);
-                    
-                    console.log('precio minimo:', minPrecio, '// precio maximo:', maxPrecio);
                     
                     html = '<div class="detalle-precios">';
                     html += `<p><strong>Precio mínimo:</strong> ${minPrecio.toFixed(2)}€</p>`;
@@ -178,7 +151,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 document.getElementById('detalleContenido').innerHTML = html;
             })
             .catch(error => {
-                console.error('ERROR al cargar detalle:', error);
                 document.getElementById('detalleContenido').innerHTML = '<p style="color: red;">Error al cargar el detalle</p>';
             });
     }
@@ -186,7 +158,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // búsqueda de productos / ahora se hace en el servidor
     function realizarBusqueda(textoBusqueda) {
         const texto = textoBusqueda.trim();
-        console.log('realizo busqueda // texto:', texto);
         cargarProductosDesdeDB(texto);
     }
 
@@ -272,15 +243,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // formulario para agregar un nuevo precio
     form.addEventListener('submit', (e) => {
         e.preventDefault();
-        console.log('=== ENVIANDO FORMULARIO ===');
         
         const nuevoProducto = {
             producto: document.getElementById('producto').value,
             supermercado: document.getElementById('supermercado').value,
             precio: document.getElementById('precio').value
         };
-
-        console.log('envio formulario // datos:', nuevoProducto);
 
         // envio a la API REST que usa las clases POO
         const formData = new FormData();
@@ -294,30 +262,22 @@ document.addEventListener('DOMContentLoaded', () => {
         })
         .then(response => response.json())
         .then(data => {
-            console.log('respuesta del servidor:', data);
             if (data.success) {
-                console.log('precio añadido correctamente // producto:', nuevoProducto.producto);
                 alert('precio añadido correctamente!');
-                console.log('recargo productos...');
                 cargarProductosDesdeDB();
                 form.reset();
                 
                 // cierro la modal con jQuery
                 $(modalAnadir).fadeOut(300);
             } else {
-                console.error('ERROR al añadir precio:', data.message);
                 alert('Error: ' + data.message);
             }
         })
         .catch(error => {
-            console.error('ERROR en la peticion:', error);
             alert('Error al conectar con el servidor');
         });
     });
 
     // cargo los productos al iniciar (sin filtro = todos)
-    console.log('===================================');
-    console.log('[INICIO] Iniciando aplicacion...');
-    console.log('===================================');
     cargarProductosDesdeDB();
 });
