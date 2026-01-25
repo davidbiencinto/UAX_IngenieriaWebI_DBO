@@ -30,7 +30,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const inputBusquedaMobile = document.getElementById('inputBusquedaMobile');
     const btnBuscarMobile = document.getElementById('btnBuscarMobile');
 
-    // funcion para cargar precios desde la API REST usando la clase Precio
     function cargarProductosDesdeDB(textoBusqueda = '') {
         console.log('=== INICIANDO cargarProductosDesdeDB ===');
         console.log('cargo productos desde DB // texto busqueda:', textoBusqueda || '(todos)');
@@ -63,7 +62,6 @@ document.addEventListener('DOMContentLoaded', () => {
             });
     }
 
-    // funcion para pintar los productos en el html
     function mostrarProductos(lista) {
         console.log('=== MOSTRANDO PRODUCTOS ===');
         console.log('Cantidad a mostrar:', lista.length);
@@ -125,6 +123,9 @@ document.addEventListener('DOMContentLoaded', () => {
             
             contenedor.appendChild(div);
         });
+        
+        // efecto slideDown con jQuery al mostrar todos los productos
+        $(contenedor).hide().slideDown(500);
     }
 
     // función para mostrar detalle de un producto
@@ -132,8 +133,8 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log('=== MOSTRANDO DETALLE ===');
         console.log('muestro detalle de producto // nombre:', nombreProducto);
         
-        // abro modal
-        modalDetalle.style.display = 'block';
+        // abro modal con jQuery
+        $(modalDetalle).fadeIn(300);
         document.getElementById('detalleNombreProducto').textContent = nombreProducto;
         document.getElementById('detalleContenido').innerHTML = '<p>Cargando...</p>';
         
@@ -232,39 +233,39 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // gestion de los modales (abrir y cerrar)
+    // gestion de los modales (abrir y cerrar) con jQuery
     // abrir modal para añadir (móvil y desktop)
     btnMostrarAnadir.addEventListener('click', () => {
-        modalAnadir.style.display = 'block';
+        $(modalAnadir).fadeIn(300);
     });
 
     // cerrar modal añadir
     btnCerrarAnadir.addEventListener('click', () => {
-        modalAnadir.style.display = 'none';
+        $(modalAnadir).fadeOut(300);
     });
 
     // cerrar modal buscar (si existe)
     if (btnCerrarBuscar) {
         btnCerrarBuscar.addEventListener('click', () => {
-            modalBuscar.style.display = 'none';
+            $(modalBuscar).fadeOut(300);
         });
     }
 
     // cerrar modal detalle
     btnCerrarDetalle.addEventListener('click', () => {
-        modalDetalle.style.display = 'none';
+        $(modalDetalle).fadeOut(300);
     });
 
-    // cerrar modal si haces click fuera
-    window.addEventListener('click', (e) => {
+    // cerrar modal si haces click fuera (con jQuery)
+    $(window).on('click', function(e) {
         if (e.target === modalAnadir) {
-            modalAnadir.style.display = 'none';
+            $(modalAnadir).fadeOut(300);
         }
         if (e.target === modalBuscar) {
-            modalBuscar.style.display = 'none';
+            $(modalBuscar).fadeOut(300);
         }
         if (e.target === modalDetalle) {
-            modalDetalle.style.display = 'none';
+            $(modalDetalle).fadeOut(300);
         }
     });
 
@@ -301,8 +302,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 cargarProductosDesdeDB();
                 form.reset();
                 
-                // cierro la modal
-                modalAnadir.style.display = 'none';
+                // cierro la modal con jQuery
+                $(modalAnadir).fadeOut(300);
             } else {
                 console.error('ERROR al añadir precio:', data.message);
                 alert('Error: ' + data.message);

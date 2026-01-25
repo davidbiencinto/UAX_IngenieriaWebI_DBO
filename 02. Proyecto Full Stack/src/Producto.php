@@ -11,7 +11,7 @@ class Producto {
     }
 
 
-    // inserto un producto si no existe
+    // aquí inserto un producto si no existe
     public function insertar($nombre) {
         $sql = "INSERT IGNORE INTO productos (nombre) VALUES (?)";
         $stmt = $this->conn->prepare($sql);
@@ -23,7 +23,7 @@ class Producto {
         return false;
     }
 
-    // obtengo todos los productos
+    // aquí obtengo todos los productos
     public function obtenerTodos() {
         $sql = "SELECT * FROM productos ORDER BY nombre";
         $result = $this->conn->query($sql);
@@ -37,7 +37,7 @@ class Producto {
         return $productos;
     }
 
-    // compruebo si un producto existe
+    // aquí compruebo si un producto existe
     public function existe($nombre) {
         $sql = "SELECT id FROM productos WHERE nombre = ?";
         $stmt = $this->conn->prepare($sql);

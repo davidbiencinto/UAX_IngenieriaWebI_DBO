@@ -4,13 +4,13 @@ class Precio {
     private $db;
     private $conn;
 
-    // constructor // inyecto la base de datos 
+    // constructor // aquí inyecto la base de datos 
     public function __construct($database) {
         $this->db = $database;
         $this->conn = $database->getConexion();
     }
 
-    // recupero los precios con toda la info de producto y supermercados
+    // aquí recupero los precios con toda la info de producto y supermercados
     public function obtenerTodos() {
         $sql = "SELECT p.producto_nombre as nombre, s.name as supermercado, p.precio 
                 FROM precios p 
@@ -31,7 +31,7 @@ class Precio {
 
     }
 
-    // añado precio
+    // aquí añado precio
     public function insertar($productoNombre, $supermercadoId, $precio) {
         $sql = "INSERT INTO precios (producto_nombre, supermercado_id, precio) VALUES (?, ?, ?)";
         $stmt = $this->conn->prepare($sql);
@@ -43,7 +43,7 @@ class Precio {
         return false;
     }
 
-    // recupero productos por nombre
+    // aquí recupero productos por nombre
     public function obtenerPorProducto($productoNombre) {
         $sql = "SELECT p.precio, s.name as supermercado 
                 FROM precios p 
@@ -66,7 +66,7 @@ class Precio {
         return $precios;
     }
 
-    // busco precios por texto (nombre de producto o supermercado)
+    // aquí busco precios por texto (nombre de producto o supermercado)
     public function buscar($texto) {
         $textoLike = "%" . $texto . "%";
         $sql = "SELECT p.producto_nombre as nombre, s.name as supermercado, p.precio 
@@ -93,7 +93,7 @@ class Precio {
         return $precios;
     }
 
-    // obtengo detalle completo de un producto con todos sus precios
+    // aquí obtengo detalle completo de un producto con todos sus precios
     public function obtenerDetalle($productoNombre) {
         $sql = "SELECT p.producto_nombre as nombre, s.name as supermercado, p.precio, p.fecha_creacion
                 FROM precios p 

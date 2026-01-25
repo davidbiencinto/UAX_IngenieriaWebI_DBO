@@ -10,7 +10,7 @@ class Supermercado {
         $this->conn = $database->getConexion();
     }
 
-    // metodo para obtener el id de un supermercado por nombre
+    // aquí obtengo el id de un supermercado por nombre
     public function obtenerIdPorNombre($nombre) {
         $sql = "SELECT id FROM supermercados WHERE name = ?";
         $stmt = $this->conn->prepare($sql);
@@ -25,7 +25,7 @@ class Supermercado {
         return null;
     }
 
-    // metodo para obtener todos los supermercados
+    // aquí obtengo todos los supermercados
     public function obtenerTodos() {
         $sql = "SELECT * FROM supermercados ORDER BY name";
         $result = $this->conn->query($sql);

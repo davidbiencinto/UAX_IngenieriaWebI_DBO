@@ -1,3 +1,4 @@
+# ---------- Estructura de tablas
 CREATE TABLE IF NOT EXISTS supermercados (
   id INT AUTO_INCREMENT PRIMARY KEY,
   name VARCHAR(100) NOT NULL UNIQUE
@@ -18,7 +19,7 @@ CREATE TABLE IF NOT EXISTS precios (
   FOREIGN KEY (supermercado_id) REFERENCES supermercados(id)
 );
 
-# Datos iniciales (de prueba)
+# ---------- Datos iniciales (de prueba)
 INSERT INTO supermercados(name)
     VALUES 
     ('Mercadona'), 

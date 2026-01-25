@@ -13,7 +13,7 @@ class Database {
 
     // constructor / se ejecuta al crear el objeto
     public function __construct() {
-        // obtengo las credenciales de las variables de entorno
+        // aquí obtengo las credenciales de las variables de entorno
         $this->dbname = getenv('MYSQL_DATABASE') ?: 'precios_db';
         $this->user = getenv('MYSQL_USER') ?: 'david';
         $this->pass = getenv('MYSQL_PASSWORD') ?: 'password';
@@ -41,7 +41,7 @@ class Database {
         }
     }
 
-    // me aseguro de cerrar la conexión al terminar de usar este objeto de db
+    // aquí me aseguro de cerrar la conexión al terminar de usar este objeto de db
     public function __destruct() {
         $this->cerrar();
     }
